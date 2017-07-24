@@ -1,51 +1,53 @@
-import java.util.Vector;
-import java.util.Enumeration;
+//import java.util.Vector;
+//import java.util.Enumeration;
+import org.sql2o.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 //
 //
 // Location - represents a gaming location
 //
-// Last modification date : November 13, 1997
+// Last modification date : October 08, 1997
 //
-public class Location implements java.io.Serializable
+public class Location
 {
 	// Member variables
 	private String roomTitle;
 	private String roomDescription;
-	private Vector vecExits;
-
-	// Blank constructor
-	// public Location()
-	// {
-	// 	// Blank title + description
-	// 	roomTitle = new String ();
-	// 	roomDescription = new String();
-	// 	vecExits = new Vector();
-	// }
-	//
-	// // Partial constructor
-	// public Location( String title )
-	// {
-	// 	// Assign title
-	// 	roomTitle = title;
-	//
-	// 	// Blank description
-	// 	roomDescription = new String();
-	//
-	// 	// Blank exits
-	// 	vecExits = new Vector();
-	// }
+	//private List<Exit> m_Exits;
 
 	// Full constructor
-	public Location( String roomTitle, String roomDescription )
+	public Location( String name, String description )
 	{
 		// Assign title + description
-		this.roomTitle = roomTitle;
-		this.roomDescription = roomDescription;
-
-		// Blank exits
-		this.vecExits = new Vector();
+		this.roomTitle = name;
+		this.roomDescription = description;
 	}
+
+  //   GETTERS /////////////////////////////////////
+
+	public String getTitle()
+	{
+		return this.roomTitle;
+	}
+
+  // Returns location description
+	public String getDescription()
+	{
+		return roomDescription;
+	}
+
+  public static Location find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM locations where id=:id";
+      Location location = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Location.class);
+      return location;
+    }
+  }
 
 	@Override
 	public boolean equals(Object otherLocation) {
@@ -57,57 +59,55 @@ public class Location implements java.io.Serializable
 						 this.getDescription().equals(newLocation.getDescription());
 		}
 	}
+	
+  // Returns a vector of exits
+	// public Vector getExits ()
+	// {
+  //   // Databse code here to get arary (vector) of exits
+	// 	return 5;
+	// }
 
-	// toString method
-	public String toString()
-	{
-		return roomTitle;
-	}
 
-	// Adds an exit to this location
-	public void addExit ( Exit exit )
-	{
-		vecExits.addElement (exit);
-	}
-
-	// Removes an exit from this location
-	public void removeExit ( Exit exit )
-	{
-		if (vecExits.contains (exit))
-		{
-			vecExits.removeElement (exit);
-		}
-	}
-
-	// Returns a vector of exits
-	public Vector getExits ()
-	{
-		// Return a clone, as we don't want an external
-		// object to modify our original vector
-		return (Vector) vecExits.clone();
-	}
-
-	// Returns location title
-	public String getTitle()
-	{
-		return roomTitle;
-	}
-
-	// Assigns location title
-	public void setTitle( String roomTitle )
-	{
-		roomTitle = roomTitle;
-	}
-
-	// Returns location description
-	public String getDescription()
-	{
-		return roomDescription;
-	}
-
-	// Assigns location description
-	public void setDescription( String roomDescription )
-	{
-		roomDescription = roomDescription;
-	}
-}
+	// // Adds an exit to this location
+	// public void addExit ( Exit exit )
+	// {
+	// 	m_Exits.addElement (exit);
+	// }
+  //
+	// // Removes an exit from this location
+	// public void removeExit ( Exit exit )
+	// {
+	// 	if (m_Exits.contains (exit))
+	// 	{
+	// 		m_Exits.removeElement (exit);
+	// 	}
+	// }
+  //
+  //
+  //
+  // public static List<Exit> all() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT * FROM exits where locationId=:locationId";
+  //     return con.createQuery(sql)
+  //       .addParameter("id", id)
+  //       .throwOnMappingFailure(false)
+  //       .executeAndFetch(Exit.class);
+  //   }
+  // }
+  //
+  //
+  //
+	// // Assigns location title
+	// public void setTitle( String roomTitle )
+	// {
+	// 	roomTitle = roomTitle;
+	// }
+  //
+  //
+  //
+	// // Assigns location description
+	// public void setDescription( String roomDescription )
+	// {
+	// 	roomDescription = roomDescription;
+	// }
+} // end of location class
