@@ -20,4 +20,10 @@ public class ExitTest {
     assertTrue(firstExit.equals(anotherExit));
   }
 
+  @Test
+  public void save_returnsTrueIfExitsAretheSame() {
+    Exit testExit = new Exit( 1, 3, 5 );
+    testExit.save();
+    assertTrue(Exit.all().get(0).equals(testExit));
+  }
 }
