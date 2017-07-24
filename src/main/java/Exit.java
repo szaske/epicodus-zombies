@@ -2,9 +2,9 @@
 //
 // Exit - represents an exit to a location
 //
-// Last modification date : October 07, 1997
+// Last modification date : November 13, 1997
 //
-public class Exit
+public class Exit implements java.io.Serializable
 {
 	// Numerical codes
 	public static final int UNDEFINED = 0;
@@ -57,74 +57,81 @@ public class Exit
 	};
 
 	// Member variables
-	private int m_leadsToLocationId;
-	private int m_direction;
-	private String m_directionName;  // Full name of direction eg SOUTHEAST
-	private String m_shortDirectionName;   // Shortened version of direction eg SE
+	private int locationId;
+	private int leadsToLocationId;
+	private int direction;
+
+	// Full name of direction eg SOUTHEAST
+	private String directionName;
+
+	// Shortened version of direction eg SE
+	private String shortDirectionName;
 
 	// Default constructor
 	// public Exit()
 	// {
-	// 	m_direction = Exit.UNDEFINED;
-	// 	m_leadsToLocationId = null;
-	// 	m_directionName = dirName[UNDEFINED];
-	// 	m_shortDirectionName = shortDirName[UNDEFINED];
+	// 	direction = Exit.UNDEFINED;
+	// 	leadsTo = null;
+	// 	directionName = dirName[UNDEFINED];
+	// 	shortDirectionName = shortDirName[UNDEFINED];
 	// }
 
 	// Full constructor
-	public Exit( int direction, int leadsToLocationId )
+	public Exit( int direction, int locationId, int leadsToLocationId )
 	{
-		m_direction = direction;
+		this.locationId = locationId;
+		this.direction = direction;
 
 		// Assign direction names
 		if (direction <= dirName.length )
-			m_directionName = dirName[m_direction];
+			directionName = dirName[direction];
 		if (direction <= shortDirName.length )
-			m_shortDirectionName = shortDirName[m_direction];
+			shortDirectionName = shortDirName[direction];
 
 		// Assign location
-		m_leadsToLocationId = leadsToLocationId;
+		this.leadsToLocationId = leadsToLocationId;
 	}
 
-
-  //// GETTERS /////////////////////////////////////
-
-  // Returns location
-  public int getLeadsToLocationId()
-  {
-    return m_leadsToLocationId;
-  }
-
-  // Returns direction name
-  public String getDirectionName()
-  {
-    return m_directionName;
-  }
-
-  // Returns short direction name
-  public String getShortDirectionName ()
-  {
-    return m_shortDirectionName;
-  }
-
-  //// SETTERS /////////////////////////////////////
+	// toString method
+	public String toString()
+	{
+		return directionName;
+	}
 
 	// Assigns direction name
 	public void setDirectionName( String dirname )
 	{
-		m_directionName = dirname;
+		directionName = dirname;
+	}
+
+	// Returns direction name
+	public String getDirectionName()
+	{
+		return directionName;
 	}
 
 	// Assigns short direction name
 	public void setShortDirectionName ( String shortName )
 	{
-		m_shortDirectionName = shortName;
+		shortDirectionName = shortName;
+	}
+
+	// Returns short direction name
+	public String getShortDirectionName ()
+	{
+		return shortDirectionName;
 	}
 
 	// Assigns location
-	public void setLeadsTo ( int leadsToLocationId )
+	public void setLeadsTo ( Location leadsTo )
 	{
-		m_leadsToLocationId = leadsToLocationId;
+		leadsTo = leadsTo;
 	}
 
-} // end of Exit class
+	// Returns location
+	public int getLeadsToLocationId (  )
+	{
+		return leadsToLocationId;
+	}
+
+}
