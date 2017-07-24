@@ -85,12 +85,15 @@ public class Location
     }
   }
 
-  // Returns a vector of exits
-	// public Vector getExits ()
-	// {
-  //   // Databse code here to get arary (vector) of exits
-	// 	return 5;
-	// }
+	public List<Exit> getExits () {
+    try(Connection con = DB.sql2o.open()) {
+			String sql = "SELECT * FROM exits where locationId=:id";
+			return con.createQuery(sql)
+			.addParameter("id", this.id)
+			.throwOnMappingFailure(false)
+			.executeAndFetch(Exit.class);
+		}
+	}
 
 
 	// // Adds an exit to this location

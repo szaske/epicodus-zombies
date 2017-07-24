@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.Arrays;
 
 public class LocationTest {
 
@@ -27,6 +28,7 @@ public class LocationTest {
     assertTrue(Location.all().get(0).equals(testLocation));
   }
 
+  //will fail without test database
   @Test
   public void all_returnsAllInstancesOfLocation_true() {
     Location firstLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
@@ -37,6 +39,7 @@ public class LocationTest {
     assertEquals(true, Location.all().get(1).equals(secondLocation));
   }
 
+  //will fail without test database
   @Test
   public void save_assignsIdToObject() {
     Location testLocation = new Location("Couch Room", "You have found yourself in a comfortable place.");
@@ -52,6 +55,18 @@ public class LocationTest {
     Location secondLocation = new Location ("Couch Room", "You have found yourself in a comfortable place.");
     secondLocation.save();
     assertEquals(Location.find(secondLocation.getId()), secondLocation);
+  }
+
+  @Test
+  public void getExits_retrievesAllExitsFromDatabase_exitsList() {
+    Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    testLocation.save();
+    Exit firstExit = new Exit( 1, testLocation.getId(), 5 );
+    firstExit.save();
+    Exit secondExit = new Exit( 2, testLocation.getId(), 6 );
+    secondExit.save();
+    Exit[] exits = new Exit[] { firstExit, secondExit };
+    assertTrue(testLocation.getExits().containsAll(Arrays.asList(exits)));
   }
 
 }
