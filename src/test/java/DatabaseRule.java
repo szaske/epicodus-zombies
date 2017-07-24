@@ -8,14 +8,14 @@ public class DatabaseRule extends ExternalResource {
     DB.sql2o = new  Sql2o("jdbc:postgresql://epicodus-zombies.cafkxnyet4pa.us-west-2.rds.amazonaws.com:5432/epicodus_zombies", "epicodus_student", "stayfocused");
   }
 
-  @Override
-  protected void after() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteLocationsQuery = "DELETE FROM locations *;";
-      con.createQuery(deleteLocationsQuery).executeUpdate();
-      String deleteExitsQuery = "DELETE FROM exits *;";
-      con.createQuery(deleteExitsQuery).executeUpdate();
-    }
-  }
+  // @Override
+  // protected void after() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String deleteLocationsQuery = "DELETE FROM locations *;";
+  //     con.createQuery(deleteLocationsQuery).executeUpdate();
+  //     String deleteExitsQuery = "DELETE FROM exits *;";
+  //     con.createQuery(deleteExitsQuery).executeUpdate();
+  //   }
+  // }
 
 }
