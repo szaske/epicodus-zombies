@@ -100,7 +100,7 @@ public class Exit implements java.io.Serializable
       return false;
     } else {
       Exit newExit = (Exit) otherExit;
-      return this.getDirectionName().equals(newExit.getDirectionName()) &&
+      return this.getDirection() == (newExit.getDirection()) &&
              this.getLeadsToLocationId() == (newExit.getLeadsToLocationId()) &&
 						 this.getLocationId() == (newExit.getLocationId());
     }
@@ -127,12 +127,44 @@ public class Exit implements java.io.Serializable
     }
   }
 
+	public static Exit find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM exits where id=:id";
+      Exit exit = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Exit.class);
+      return exit;
+    }
+  }
+
+	public int getDirection()
+	{
+		return direction;
+	}
+
+	public int getLeadsToLocationId (  )
+	{
+		return leadsTo;
+	}
+
+	public int getLocationId (  )
+	{
+		return locationId;
+	}
+
+	public int getId (  )
+	{
+		return id;
+	}
+
+
 
 	// toString method
 	public String toString()
 	{
 		return directionName;
 	}
+
 
 	// Assigns direction name
 	public void setDirectionName( String dirname )
@@ -159,20 +191,10 @@ public class Exit implements java.io.Serializable
 	}
 
 	// Assigns location
-	public void setLeadsTo ( Location leadsTo )
-	{
-		leadsTo = leadsTo;
-	}
+	// public void setLeadsTo ( int leadsTo )
+	// {
+	// 	leadsTo = leadsTo;
+	// }
 
-	// Returns location
-	public int getLeadsToLocationId (  )
-	{
-		return leadsTo;
-	}
-
-	public int getLocationId (  )
-	{
-		return locationId;
-	}
 
 }
