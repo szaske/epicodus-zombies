@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+
+  static int getHerokuAssignedPort() {
+
   public static void main(String[] args) {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
