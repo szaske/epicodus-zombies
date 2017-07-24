@@ -20,4 +20,38 @@ public class LocationTest {
     assertTrue(firstLocation.equals(anotherLocation));
   }
 
+  @Test
+  public void save_insertsObjectIntoDatabase_Location() {
+    Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    testLocation.save();
+    assertTrue(Location.all().get(0).equals(testLocation));
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfLocation_true() {
+    Location firstLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    firstLocation.save();
+    Location secondLocation = new Location ("Couch Room", "You have found yourself in a comfortable place.");
+    secondLocation.save();
+    assertEquals(true, Location.all().get(0).equals(firstLocation));
+    assertEquals(true, Location.all().get(1).equals(secondLocation));
+  }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Location testLocation = new Location("Couch Room", "You have found yourself in a comfortable place.");
+    testLocation.save();
+    Location savedLocation = Location.all().get(0);
+    assertEquals(testLocation.getId(), savedLocation.getId());
+  }
+
+  @Test
+  public void find_returnsLocationWithSameId_secondLocation() {
+    Location firstLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    firstLocation.save();
+    Location secondLocation = new Location ("Couch Room", "You have found yourself in a comfortable place.");
+    secondLocation.save();
+    assertEquals(Location.find(secondLocation.getId()), secondLocation);
+  }
+
 }

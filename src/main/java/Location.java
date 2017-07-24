@@ -16,6 +16,7 @@ public class Location
 	// Member variables
 	private String roomTitle;
 	private String roomDescription;
+	private int id;
 	//private List<Exit> m_Exits;
 
 	// Full constructor
@@ -39,6 +40,10 @@ public class Location
 		return roomDescription;
 	}
 
+	public int getId() {
+		return id;
+	}
+
   public static Location find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM locations where id=:id";
@@ -59,7 +64,27 @@ public class Location
 						 this.getDescription().equals(newLocation.getDescription());
 		}
 	}
-	
+
+	public void save() {
+		try(Connection con = DB.sql2o.open()) {
+			String sql = "INSERT INTO locations (roomtitle, roomdescription) VALUES (:roomtitle, :roomdescription)";
+			this.id = (int) con.createQuery(sql, true)
+				.addParameter("roomtitle", this.roomTitle)
+				.addParameter("roomdescription", this.roomDescription)
+				.executeUpdate()
+				.getKey();
+		}
+	}
+
+	public static List<Location> all() {
+    String sql = "SELECT * FROM locations";
+    try(Connection con = DB.sql2o.open()) {
+     return con.createQuery(sql)
+		 		.throwOnMappingFailure(false)
+		 		.executeAndFetch(Location.class);
+    }
+  }
+
   // Returns a vector of exits
 	// public Vector getExits ()
 	// {

@@ -1,4 +1,6 @@
-//
+import org.sql2o.*;
+import java.util.ArrayList;
+import java.util.List;
 //
 // Exit - represents an exit to a location
 //
@@ -58,8 +60,9 @@ public class Exit implements java.io.Serializable
 
 	// Member variables
 	private int locationId;
-	private int leadsToLocationId;
+	private int leadsTo;
 	private int direction;
+	private int id;
 
 	// Full name of direction eg SOUTHEAST
 	private String directionName;
@@ -77,7 +80,7 @@ public class Exit implements java.io.Serializable
 	// }
 
 	// Full constructor
-	public Exit( int direction, int locationId, int leadsToLocationId )
+	public Exit( int direction, int locationId, int leadsTo )
 	{
 		this.locationId = locationId;
 		this.direction = direction;
@@ -89,7 +92,7 @@ public class Exit implements java.io.Serializable
 			shortDirectionName = shortDirName[direction];
 
 		// Assign location
-		this.leadsToLocationId = leadsToLocationId;
+		this.leadsTo = leadsTo;
 	}
 	@Override
   public boolean equals(Object otherExit){
@@ -102,6 +105,28 @@ public class Exit implements java.io.Serializable
 						 this.getLocationId() == (newExit.getLocationId());
     }
   }
+
+	public void save() {
+		try(Connection con = DB.sql2o.open()) {
+			String sql = "INSERT INTO exits (direction, locationid, leadsto) VALUES (:direction, :locationid, :leadsto)";
+			this.id = (int) con.createQuery(sql, true)
+				.addParameter("direction", this.direction)
+				.addParameter("locationid", this.locationId)
+        .addParameter("leadsto", this.leadsTo)
+				.executeUpdate()
+				.getKey();
+		}
+	}
+
+	public static List<Exit> all() {
+    String sql = "SELECT * FROM exits";
+    try(Connection con = DB.sql2o.open()) {
+     return con.createQuery(sql)
+		 		.throwOnMappingFailure(false)
+		 		.executeAndFetch(Exit.class);
+    }
+  }
+
 
 	// toString method
 	public String toString()
@@ -142,7 +167,7 @@ public class Exit implements java.io.Serializable
 	// Returns location
 	public int getLeadsToLocationId (  )
 	{
-		return leadsToLocationId;
+		return leadsTo;
 	}
 
 	public int getLocationId (  )
