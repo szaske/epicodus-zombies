@@ -1,92 +1,113 @@
-//import java.util.Vector;
-//import java.util.Enumeration;
-import org.sql2o.*;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Vector;
+import java.util.Enumeration;
 
 //
 //
 // Location - represents a gaming location
 //
-// Last modification date : October 08, 1997
+// Last modification date : November 13, 1997
 //
-public class Location
+public class Location implements java.io.Serializable
 {
 	// Member variables
-	private String m_Name;
-	private String m_roomDescription;
-	//private List<Exit> m_Exits;
+	private String roomTitle;
+	private String roomDescription;
+	private Vector vecExits;
+
+	// Blank constructor
+	// public Location()
+	// {
+	// 	// Blank title + description
+	// 	roomTitle = new String ();
+	// 	roomDescription = new String();
+	// 	vecExits = new Vector();
+	// }
+	//
+	// // Partial constructor
+	// public Location( String title )
+	// {
+	// 	// Assign title
+	// 	roomTitle = title;
+	//
+	// 	// Blank description
+	// 	roomDescription = new String();
+	//
+	// 	// Blank exits
+	// 	vecExits = new Vector();
+	// }
 
 	// Full constructor
-	public Location( String name, String description )
+	public Location( String roomTitle, String roomDescription )
 	{
 		// Assign title + description
-		m_Name = name;
-		m_roomDescription = description;
+		this.roomTitle = roomTitle;
+		this.roomDescription = roomDescription;
+
+		// Blank exits
+		this.vecExits = new Vector();
 	}
 
-  //   GETTERS /////////////////////////////////////
+	@Override
+	public boolean equals(Object otherLocation) {
+		if(!(otherLocation instanceof Location)) {
+			return false;
+		} else {
+			Location newLocation = (Location) otherLocation;
+			return this.getTitle().equals(newLocation.getTitle()) &&
+						 this.getDescription().equals(newLocation.getDescription());
+		}
+	}
 
-	public String getName()
+	// toString method
+	public String toString()
 	{
-		return m_Name;
+		return roomTitle;
 	}
 
-  // Returns location description
+	// Adds an exit to this location
+	public void addExit ( Exit exit )
+	{
+		vecExits.addElement (exit);
+	}
+
+	// Removes an exit from this location
+	public void removeExit ( Exit exit )
+	{
+		if (vecExits.contains (exit))
+		{
+			vecExits.removeElement (exit);
+		}
+	}
+
+	// Returns a vector of exits
+	public Vector getExits ()
+	{
+		// Return a clone, as we don't want an external
+		// object to modify our original vector
+		return (Vector) vecExits.clone();
+	}
+
+	// Returns location title
+	public String getTitle()
+	{
+		return roomTitle;
+	}
+
+	// Assigns location title
+	public void setTitle( String roomTitle )
+	{
+		roomTitle = roomTitle;
+	}
+
+	// Returns location description
 	public String getDescription()
 	{
-		return m_roomDescription;
+		return roomDescription;
 	}
 
-  // Returns a vector of exits
-	// public Vector getExits ()
-	// {
-  //   // Databse code here to get arary (vector) of exits
-	// 	return 5;
-	// }
-
-
-	// // Adds an exit to this location
-	// public void addExit ( Exit exit )
-	// {
-	// 	m_Exits.addElement (exit);
-	// }
-  //
-	// // Removes an exit from this location
-	// public void removeExit ( Exit exit )
-	// {
-	// 	if (m_Exits.contains (exit))
-	// 	{
-	// 		m_Exits.removeElement (exit);
-	// 	}
-	// }
-  //
-  //
-  //
-  // public static List<Exit> all() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT * FROM exits where locationId=:locationId";
-  //     return con.createQuery(sql)
-  //       .addParameter("id", id)
-  //       .throwOnMappingFailure(false)
-  //       .executeAndFetch(Exit.class);
-  //   }
-  // }
-  //
-  //
-  //
-	// // Assigns location title
-	// public void setTitle( String roomTitle )
-	// {
-	// 	m_Name = roomTitle;
-	// }
-  //
-  //
-  //
-	// // Assigns location description
-	// public void setDescription( String roomDescription )
-	// {
-	// 	m_roomDescription = roomDescription;
-	// }
-} // end of location class
+	// Assigns location description
+	public void setDescription( String roomDescription )
+	{
+		roomDescription = roomDescription;
+	}
+}

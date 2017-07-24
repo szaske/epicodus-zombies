@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-archivesBaseName = "zombie-zork"
+archivesBaseName = "java-text-adventure2"
 version = '1.0'
 mainClassName = "App"
 

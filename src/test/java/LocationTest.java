@@ -1,30 +1,23 @@
+import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import org.sql2o.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 
 public class LocationTest {
-  // @Rule
-  // public DatabaseRule database = new DatabaseRule();
+
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
   @Test
   public void location_instantiatesCorrectly_true() {
-    Location testLocation = new Location("The Kitchen", "A messy kitchen");
+    Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
     assertEquals(true, testLocation instanceof Location);
   }
 
-  // @Test
-  // public void getName_animalInstantiatesWithName_Deer() {
-  //   Animal testAnimal = new Animal("Deer");
-  //   assertEquals("Deer", testAnimal.getName());
-  // }
-  //
-  // @Test
-  // public void equals_returnsTrueIfNameIsTheSame_false() {
-  //   Animal firstAnimal = new Animal("Deer");
-  //   Animal anotherAnimal = new Animal("Deer");
-  //   assertTrue(firstAnimal.equals(anotherAnimal));
-  // }
+  @Test
+  public void equals_returnsTrueIfRoomTitleAndRoomDescriptionAreSame_true() {
+    Location firstLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    Location anotherLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+    assertTrue(firstLocation.equals(anotherLocation));
+  }
+
 }
