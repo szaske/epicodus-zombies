@@ -15,9 +15,9 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Location testLocation = new Location("Kitchen", "A messy kitchen");
       List<Exit> testExits = new ArrayList<Exit>();
-      Exit oneExit = new Exit(1,1);
+      Exit oneExit = new Exit(1,1,1);
       testExits.add(oneExit);
-      Exit twoExit = new Exit(2,2);
+      Exit twoExit = new Exit(2,2,2);
       testExits.add(twoExit);
       model.put("location", testLocation);
       model.put("exits", testExits);
@@ -29,9 +29,9 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Location testLocation = new Location("Kitchen", "A messy kitchen");
       List<Exit> testExits = new ArrayList<Exit>();
-      Exit oneExit = new Exit(1,1);
+      Exit oneExit = new Exit(1,1,1);
       testExits.add(oneExit);
-      Exit twoExit = new Exit(2,2);
+      Exit twoExit = new Exit(2,2,2);
       testExits.add(twoExit);
       model.put("location", testLocation);
       model.put("exits", testExits);

@@ -13,4 +13,11 @@ public class ExitTest {
     assertEquals(true, testExit instanceof Exit);
   }
 
+  @Test
+  public void equals_returnsTrueIfDirectionAndLocationIdAndLeadsToIdAreSame_true() {
+    Exit firstExit = new Exit ( 1, 3, 5 );
+    Exit anotherExit = new Exit ( 1, 3, 5 );
+    assertTrue(firstExit.equals(anotherExit));
+  }
+
 }

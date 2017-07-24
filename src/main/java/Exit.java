@@ -91,6 +91,17 @@ public class Exit implements java.io.Serializable
 		// Assign location
 		this.leadsToLocationId = leadsToLocationId;
 	}
+	@Override
+  public boolean equals(Object otherExit){
+    if (!(otherExit instanceof Exit)) {
+      return false;
+    } else {
+      Exit newExit = (Exit) otherExit;
+      return this.getDirectionName().equals(newExit.getDirectionName()) &&
+             this.getLeadsToLocationId() == (newExit.getLeadsToLocationId()) &&
+						 this.getLocationId() == (newExit.getLocationId());
+    }
+  }
 
 	// toString method
 	public String toString()
@@ -132,6 +143,11 @@ public class Exit implements java.io.Serializable
 	public int getLeadsToLocationId (  )
 	{
 		return leadsToLocationId;
+	}
+
+	public int getLocationId (  )
+	{
+		return locationId;
 	}
 
 }
