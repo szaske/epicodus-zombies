@@ -28,6 +28,18 @@ public class App {
 
     post("/go", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+
+      // read the form and get the hidden location ID
+      // read the text field to get direction
+        // logic to decipher command
+      // query DB to get new location ID
+      // Create a new Location using the ID
+      // Location newLocation = Location.find(param)
+      // list<Exit> Exits = Exits.getExits(param)
+      //model.put both those into the model
+      //return new webpage.
+
+
       Location testLocation = new Location("Kitchen", "A messy kitchen");
       List<Exit> testExits = new ArrayList<Exit>();
       Exit oneExit = new Exit(1,1,1);
