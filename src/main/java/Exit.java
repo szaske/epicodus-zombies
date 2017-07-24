@@ -59,12 +59,8 @@ public class Exit
 	// Member variables
 	private int m_leadsToLocationId;
 	private int m_direction;
-
-	// Full name of direction eg SOUTHEAST
-	private String m_directionName;
-
-	// Shortened version of direction eg SE
-	private String m_shortDirectionName;
+	private String m_directionName;  // Full name of direction eg SOUTHEAST
+	private String m_shortDirectionName;   // Shortened version of direction eg SE
 
 	// Default constructor
 	// public Exit()

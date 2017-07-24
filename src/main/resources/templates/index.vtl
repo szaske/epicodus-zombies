@@ -1,8 +1,13 @@
 <!--index.vtl-->
-Location: $location.getName()
-Description: $location.getDescription()
+Location: $location.getName()<br>
+Description: $location.getDescription()<br>
 Exits:<br>
-#foreach ($exit in $location.getExits())
-$exit.getDirName()<br>
+#foreach ($exit in $exits)
+$exit.getDirectionName()<br>
 #end
+<form action="/go" method="post">
+  <label for="command">></label>
+  <input id="command" name="command" type="text">
+  <button type="submit" class="btn btn-success">Go</button>
+</form>
 <!--index.vtl-->
