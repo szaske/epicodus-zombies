@@ -27,6 +27,7 @@ public class ExitTest {
     assertTrue(Exit.all().get(0).equals(testExit));
   }
 
+  //will fail without test database
   @Test
   public void save_assignsIdToExit() {
     Exit testExit = new Exit( 1, 3, 5 );
@@ -35,6 +36,7 @@ public class ExitTest {
     assertEquals(savedExit.getId(), testExit.getId());
   }
 
+  //will fail without test database
   @Test
   public void all_returnsAllInstancesOfExit_true() {
     Exit firstExit = new Exit( 1, 3, 5 );
