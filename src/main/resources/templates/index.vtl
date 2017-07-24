@@ -1,0 +1,8 @@
+<!--index.vtl-->
+Location: $location.getName()
+Description: $location.getDescription()
+Exits:<br>
+#foreach ($exit in $location.getExits())
+$exit.getDirName()<br>
+#end
+<!--index.vtl-->
