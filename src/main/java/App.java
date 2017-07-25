@@ -57,6 +57,7 @@ public class App {
       }
       model.put("pictureURL", "img/" + Integer.toString(Exit.leadsTo(fromLocId, command)) + ".jpg");
       model.put("template", "templates/index.vtl");
+			Zombie.moveZombies();
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
