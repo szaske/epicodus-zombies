@@ -140,11 +140,10 @@ public class Exit implements java.io.Serializable
 
 	public static int leadsTo(int locId, String direction) {
     try(Connection con = DB.sql2o.open()) {
-			int dir = Arrays.asList(dirName).indexOf(direction);
       String sql = "SELECT leadsto FROM exits where locationId=:locId and direction=:dir";
       int leads = con.createQuery(sql)
 				.addParameter("locId", locId)
-				.addParameter("dir", dir)
+				.addParameter("dir", direction)
         .executeAndFetchFirst(Integer.class);
       return leads;
     }
