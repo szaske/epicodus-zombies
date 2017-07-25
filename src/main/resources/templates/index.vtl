@@ -1,15 +1,15 @@
 <!--index.vtl-->
-Location: $location.getTitle()<br>
+<h1>Location: $location.getTitle()</h1>
 Description: $location.getDescription()<br>
 <img src="$pictureURL" width="600"><br>
-Exits:<br>
+<h1>Exits:</h1>
 #foreach ($exit in $location.getExits())
-$exit.getDirection()<br>
+<h1>$exit.getDirection()</h1>
 #end
 <form action="/go" method="post">
   <input id="locationId" name="locationId" type="hidden" value="$location.getId()">
   <label for="command">></label>
   <input id="command" name="command" type="text">
-  <button type="submit" class="btn btn-success">Go</button>
+  <button type="submit" class="button">Go</button>
 </form>
 <!--index.vtl-->

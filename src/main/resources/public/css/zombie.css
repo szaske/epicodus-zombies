@@ -1,3 +1,32 @@
 body {
   background-color: black;
+  font-family: VT323;
+  font-size: 28pt;
+  color: #008106;
+}
+
+#command {
+  background-color: black;
+  border-color: black;
+}
+
+.button {
+  color: black;
+  background-color: ##e5e5e5;
+  border: 2px solid #008106;
+  border-radius: 8px;
+  font-size: 36px;
+  padding: 4px 40px;
+}
+
+.button:hover {
+  background-color: #A5A6A2}
+
+.button:active {
+  background-color: #A5A6A2;
+  box-shadow: 0 5px #666;
+}
+
+h1 {
+  font-size: 36pt;
 }
