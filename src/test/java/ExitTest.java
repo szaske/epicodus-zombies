@@ -9,20 +9,20 @@ public class ExitTest {
 
   @Test
   public void exit_instantiatesCorrectly_true() {
-    Exit testExit = new Exit ( 1, 3, 5 );
+    Exit testExit = new Exit ( "NORTH", 3, 5 );
     assertEquals(true, testExit instanceof Exit);
   }
 
   @Test
   public void equals_returnsTrueIfDirectionAndLocationIdAndLeadsToIdAreSame_true() {
-    Exit firstExit = new Exit ( 1, 3, 5 );
-    Exit anotherExit = new Exit ( 1, 3, 5 );
+    Exit firstExit = new Exit ( "NORTH", 3, 5 );
+    Exit anotherExit = new Exit ( "NORTH", 3, 5 );
     assertTrue(firstExit.equals(anotherExit));
   }
 
   @Test
   public void save_returnsTrueIfExitsAretheSame() {
-    Exit testExit = new Exit( 1, 3, 5 );
+    Exit testExit = new Exit( "NORTH", 3, 5 );
     testExit.save();
     assertTrue(Exit.all().get(0).equals(testExit));
   }
@@ -30,7 +30,7 @@ public class ExitTest {
   //will fail without test database
   @Test
   public void save_assignsIdToExit() {
-    Exit testExit = new Exit( 1, 3, 5 );
+    Exit testExit = new Exit( "NORTH", 3, 5 );
     testExit.save();
     Exit savedExit = Exit.all().get(0);
     assertEquals(savedExit.getId(), testExit.getId());
@@ -39,9 +39,9 @@ public class ExitTest {
   //will fail without test database
   @Test
   public void all_returnsAllInstancesOfExit_true() {
-    Exit firstExit = new Exit( 1, 3, 5 );
+    Exit firstExit = new Exit( "NORTH", 3, 5 );
     firstExit.save();
-    Exit secondExit = new Exit( 2, 4, 6 );
+    Exit secondExit = new Exit( "SOUTH", 4, 6 );
     secondExit.save();
     assertEquals(true, Exit.all().get(0).equals(firstExit));
     assertEquals(true, Exit.all().get(1).equals(secondExit));
@@ -49,9 +49,9 @@ public class ExitTest {
 
   @Test
   public void find_returnsExitWithSameId_secondExit() {
-    Exit firstExit = new Exit( 1, 3, 5 );
+    Exit firstExit = new Exit( "NORTH", 3, 5 );
     firstExit.save();
-    Exit secondExit = new Exit( 2, 4, 6 );
+    Exit secondExit = new Exit( "SOUTH", 4, 6 );
     secondExit.save();
     assertEquals(Exit.find(secondExit.getId()), secondExit);
   }
@@ -60,7 +60,7 @@ public class ExitTest {
   public void save_savesLocationIdIntoDB_true() {
     Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
     testLocation.save();
-    Exit testExit = new Exit( 1, testLocation.getId(), 5 );
+    Exit testExit = new Exit( "NORTH", testLocation.getId(), 5 );
     testExit.save();
     Exit savedExit = Exit.find(testExit.getId());
     assertEquals(savedExit.getLocationId(), testLocation.getId());
@@ -70,7 +70,7 @@ public class ExitTest {
   public void save_savesLeadsToIdIntoDB_true() {
     Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
     testLocation.save();
-    Exit testExit = new Exit( 1, 3, testLocation.getId() );
+    Exit testExit = new Exit( "NORTH", 3, testLocation.getId() );
     testExit.save();
     Exit savedExit = Exit.find(testExit.getId());
     assertEquals(savedExit.getLeadsToLocationId(), testLocation.getId());

@@ -61,14 +61,14 @@ public class Exit implements java.io.Serializable
 	// Member variables
 	private int locationId;
 	private int leadsTo;
-	private int direction;
+	private String direction;
 	private int id;
 
-	// Full name of direction eg SOUTHEAST
-	private String directionName;
-
-	// Shortened version of direction eg SE
-	private String shortDirectionName;
+	// // Full name of direction eg SOUTHEAST
+	// private String directionName;
+	//
+	// // Shortened version of direction eg SE
+	// private String shortDirectionName;
 
 	// Default constructor
 	// public Exit()
@@ -80,16 +80,16 @@ public class Exit implements java.io.Serializable
 	// }
 
 	// Full constructor
-	public Exit( int direction, int locationId, int leadsTo )
+	public Exit( String direction, int locationId, int leadsTo )
 	{
 		this.locationId = locationId;
 		this.direction = direction;
 
 		// Assign direction names
-		if (direction <= dirName.length )
-			directionName = dirName[direction];
-		if (direction <= shortDirName.length )
-			shortDirectionName = shortDirName[direction];
+		// if (direction <= dirName.length )
+		// 	directionName = dirName[direction];
+		// if (direction <= shortDirName.length )
+		// 	shortDirectionName = shortDirName[direction];
 
 		// Assign location
 		this.leadsTo = leadsTo;
@@ -100,7 +100,7 @@ public class Exit implements java.io.Serializable
       return false;
     } else {
       Exit newExit = (Exit) otherExit;
-      return this.getDirection() == (newExit.getDirection()) &&
+      return this.getDirection().equals(newExit.getDirection()) &&
              this.getLeadsToLocationId() == (newExit.getLeadsToLocationId()) &&
 						 this.getLocationId() == (newExit.getLocationId());
     }
@@ -137,7 +137,7 @@ public class Exit implements java.io.Serializable
     }
   }
 
-	public int getDirection()
+	public String getDirection()
 	{
 		return direction;
 	}
@@ -160,35 +160,35 @@ public class Exit implements java.io.Serializable
 
 
 	// toString method
-	public String toString()
-	{
-		return directionName;
-	}
+	// public String toString()
+	// {
+	// 	return directionName;
+	// }
 
 
 	// Assigns direction name
-	public void setDirectionName( String dirname )
-	{
-		directionName = dirname;
-	}
+	// public void setDirectionName( String dirname )
+	// {
+	// 	directionName = dirname;
+	// }
 
 	// Returns direction name
-	public String getDirectionName()
-	{
-		return directionName;
-	}
+	// public String getDirectionName()
+	// {
+	// 	return directionName;
+	// }
 
 	// Assigns short direction name
-	public void setShortDirectionName ( String shortName )
-	{
-		shortDirectionName = shortName;
-	}
-
-	// Returns short direction name
-	public String getShortDirectionName ()
-	{
-		return shortDirectionName;
-	}
+	// public void setShortDirectionName ( String shortName )
+	// {
+	// 	shortDirectionName = shortName;
+	// }
+	//
+	// // Returns short direction name
+	// public String getShortDirectionName ()
+	// {
+	// 	return shortDirectionName;
+	// }
 
 	// Assigns location
 	// public void setLeadsTo ( int leadsTo )

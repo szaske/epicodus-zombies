@@ -88,6 +88,7 @@ public class Location
 	public List<Exit> getExits () {
     try(Connection con = DB.sql2o.open()) {
 			String sql = "SELECT * FROM exits where locationId=:id";
+
 			return con.createQuery(sql)
 			.addParameter("id", this.id)
 			.throwOnMappingFailure(false)
@@ -95,7 +96,24 @@ public class Location
 		}
 	}
 
-
+	// public Exit matchExit(String directionString) {
+	// 	List<Exit> exits = this.getExits();
+	// 	Exit thisExit=null;
+	// 	for (Exit exit : exits) {
+	// 		if (exit.getDirectionName() == directionString) {
+	// 			int direction = exit.getDirection();
+	// 			try(Connection con = DB.sql2o.open())  {
+	// 				String sql = "SELECT * FROM exits WHERE locationId=:id AND direction = :direction";
+	// 				thisExit = con.createQuery(sql, true)
+	// 				.addParameter("id", this.id)
+	// 				.addParameter("direction", direction)
+	// 				.throwOnMappingFailure(false)
+	// 				.executeAndFetchFirst(Exit.class);
+	// 			}
+	// 		}
+	// 	}
+	// 	return thisExit;
+	// }
 	// // Adds an exit to this location
 	// public void addExit ( Exit exit )
 	// {
