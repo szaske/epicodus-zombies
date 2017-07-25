@@ -61,12 +61,25 @@ public class LocationTest {
   public void getExits_retrievesAllExitsFromDatabase_exitsList() {
     Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
     testLocation.save();
-    Exit firstExit = new Exit( 1, testLocation.getId(), 5 );
+    Exit firstExit = new Exit( "NORTH", testLocation.getId(), 5 );
     firstExit.save();
-    Exit secondExit = new Exit( 2, testLocation.getId(), 6 );
+    Exit secondExit = new Exit( "SOUTH", testLocation.getId(), 6 );
     secondExit.save();
     Exit[] exits = new Exit[] { firstExit, secondExit };
     assertTrue(testLocation.getExits().containsAll(Arrays.asList(exits)));
   }
+
+  // @Test
+  //   void matchExit_getsMatchingExitFromString_true() {
+  //   Location testLocation = new Location ("Computer Room", "You have found yourself in a room full of rows of expensive Mac computers.");
+  //   testLocation.save();
+  //   Exit firstExit = new Exit( 1, testLocation.getId(), 1 );
+  //   firstExit.save();
+  //   Exit secondExit = new Exit( 2, testLocation.getId(), 2 ); //2 is south
+  //   secondExit.save();
+  //   Exit[] exits = new Exit[] { firstExit, secondExit };
+  //   assertEquals(testLocation.matchExit("SOUTH"), secondExit);
+  //
+  // }
 
 }
