@@ -96,6 +96,17 @@ public class Location
 		}
 	}
 
+	public List<String> getExitNames () {
+    try(Connection con = DB.sql2o.open()) {
+			String sql = "SELECT direction FROM exits where locationId=:id";
+
+			return con.createQuery(sql)
+			.addParameter("id", this.id)
+			.throwOnMappingFailure(false)
+			.executeAndFetch(String.class);
+		}
+	}
+
 	// public Exit matchExit(String directionString) {
 	// 	List<Exit> exits = this.getExits();
 	// 	Exit thisExit=null;
