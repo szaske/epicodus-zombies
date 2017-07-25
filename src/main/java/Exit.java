@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 //
 // Exit - represents an exit to a location
 //
@@ -137,6 +138,18 @@ public class Exit implements java.io.Serializable
     }
   }
 
+	public static int leadsTo(int locId, String direction) {
+    try(Connection con = DB.sql2o.open()) {
+			int dir = Arrays.asList(dirName).indexOf(direction);
+      String sql = "SELECT leadsto FROM exits where locationId=:locId and direction=:dir";
+      int leads = con.createQuery(sql)
+				.addParameter("locId", locId)
+				.addParameter("dir", dir)
+        .executeAndFetchFirst(Integer.class);
+      return leads;
+    }
+  }
+
 	public String getDirection()
 	{
 		return direction;
@@ -156,45 +169,4 @@ public class Exit implements java.io.Serializable
 	{
 		return id;
 	}
-
-
-
-	// toString method
-	// public String toString()
-	// {
-	// 	return directionName;
-	// }
-
-
-	// Assigns direction name
-	// public void setDirectionName( String dirname )
-	// {
-	// 	directionName = dirname;
-	// }
-
-	// Returns direction name
-	// public String getDirectionName()
-	// {
-	// 	return directionName;
-	// }
-
-	// Assigns short direction name
-	// public void setShortDirectionName ( String shortName )
-	// {
-	// 	shortDirectionName = shortName;
-	// }
-	//
-	// // Returns short direction name
-	// public String getShortDirectionName ()
-	// {
-	// 	return shortDirectionName;
-	// }
-
-	// Assigns location
-	// public void setLeadsTo ( int leadsTo )
-	// {
-	// 	leadsTo = leadsTo;
-	// }
-
-
 }
