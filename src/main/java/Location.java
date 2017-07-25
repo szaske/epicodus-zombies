@@ -88,6 +88,7 @@ public class Location
 	public List<Exit> getExits () {
     try(Connection con = DB.sql2o.open()) {
 			String sql = "SELECT * FROM exits where locationId=:id";
+
 			return con.createQuery(sql)
 			.addParameter("id", this.id)
 			.throwOnMappingFailure(false)

@@ -69,4 +69,10 @@ public class LocationTest {
     assertTrue(testLocation.getExits().containsAll(Arrays.asList(exits)));
   }
 
+  @Test
+  public void getTitle_retrievesTitleFromDatabase_joelroom() {
+    Location testLocation = new Location ("Joel's Room", "You have found yourself in a room full of junk.");
+    testLocation.save();
+    assertEquals("Joel's Room", testLocation.getTitle());
+  }
 }
