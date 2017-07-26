@@ -32,6 +32,7 @@ public class ZombieTest {
     public void setZombieLocation_shouldChangelocations() {
       Zombie.setZombieLocation(1, 14);
       assertEquals(14,Zombie.all().get(0).getLocation());
+      assertEquals(17,Zombie.all().get(1).getLocation());
     }
 
 

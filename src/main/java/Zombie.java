@@ -145,17 +145,6 @@ public class Zombie
 		// if move then find leadsTo
 		// update DB location to leadsTo
 
-    try(Connection con = DB.sql2o.open()) {
-			String sql = "UPDATE zombies SET location=3 WHERE id=1";
-      con.createQuery(sql)
-        .executeUpdate();
-			String sql2 = "UPDATE zombies SET location=17 WHERE id=2";
-      con.createQuery(sql2)
-        .executeUpdate();
-			String sql3 = "UPDATE zombies SET location=11 WHERE id=3";
-      con.createQuery(sql3)
-        .executeUpdate();
-    }
   }
 
 	// public static void moveZombie(String name) {
@@ -171,7 +160,7 @@ public class Zombie
 	//
 	//
 	public static List<Zombie> all() {
-    String sql = "SELECT * FROM zombies";
+    String sql = "SELECT * FROM zombies ORDER BY id";
     try(Connection con = DB.sql2o.open()) {
      return con.createQuery(sql)
 		 		.throwOnMappingFailure(false)
