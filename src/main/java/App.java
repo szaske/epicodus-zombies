@@ -47,6 +47,7 @@ public class App {
       Location startLocation = Location.find(1);
       model.put("pictureURL", "img/" + Integer.toString(startLocation.getId()) + ".jpg");
       model.put("location", startLocation);
+			model.put("zombieSounds", "");
       model.put("template", "templates/index.vtl");
 			Zombie.initZombies();
       return new ModelAndView(model, layout);
@@ -64,28 +65,36 @@ public class App {
 
     post("/go", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+			//get info from th post
       int fromLocId = Integer.parseInt(request.queryParams("locationId"));
       String command = request.queryParams("command").toUpperCase();
 
-			int newLocation = Exit.leadsTo(fromLocId, command);
-			Location location = Location.find(newLocation);
-
+			//instaniate new items
+			String zombieSounds = "";
+			Location location;
 
       //Check to see if the command is a proper direction
-
       if(Location.find(fromLocId).getExitNames().contains(command)){
-        model.put("location", location);
+				// change location to the new location
+				location = Location.find(Exit.leadsTo(fromLocId, command));
       } else {
-				// stay in the same location
-        Location oldLocation = Location.find(fromLocId);
-        model.put("location", oldLocation);
+				// bad command lets stay in same location
+				location = Location.find(fromLocId);
       }
-      model.put("pictureURL", "img/" + Integer.toString(Exit.leadsTo(fromLocId, command)) + ".jpg");
-      model.put("template", "templates/index.vtl");
+
 			Zombie.moveZombies();
 
+			System.out.println("You're in location: " + location.getId());
+
+			//check for death
+			for (Zombie zombie : Zombie.all()){
+				if(zombie.getLocation()==location.getId()){
+					response.redirect("/death");
+				}
+			}
+
+			//check for Zombie sounds code
 			List<Exit> exits = location.getExits();
-			String zombieSounds = "";
 
 			for (Exit exit:exits) {
 				if(Zombie.checkZombieLocation(exit.getLeadsToLocationId())) {
@@ -93,7 +102,11 @@ public class App {
 					zombieSounds+= "<br>You hear gurgles to the " + exit.getDirection();
 				}
 			}
+
+			model.put("pictureURL", "img/" + location.getId() + ".jpg");
+			model.put("location", location);
 			model.put("zombieSounds", zombieSounds);
+			model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
