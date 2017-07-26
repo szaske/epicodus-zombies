@@ -28,14 +28,24 @@ public class ZombieTest {
   }
 
 
-    @Test
-    public void setZombieLocation_shouldChangelocations() {
-      Zombie.setZombieLocation(1, 14);
-      assertEquals(14,Zombie.all().get(0).getLocation());
-      assertEquals(17,Zombie.all().get(1).getLocation());
-    }
+  @Test
+  public void setZombieLocation_shouldChangelocations() {
+    Zombie.setZombieLocation(1, 14);
+    assertEquals(14,Zombie.all().get(0).getLocation());
+    assertEquals(17,Zombie.all().get(1).getLocation());
+  }
 
+  @Test
+  public void checkZombieLocation_returnsTrueIfZombieAtLocation_true() {
+    Zombie.setZombieLocation(1, 8);
+    Location testLocation = new Location ("Joel's Room", "You have found yourself in a room full of junk.");
+    testLocation.save();
+    Exit firstExit = new Exit( "NORTH", testLocation.getId(), 8 );
+    firstExit.save();
+    Exit secondExit = new Exit( "SOUTH", testLocation.getId(), 6 );
+    secondExit.save();
+    assertEquals(true, Zombie.checkZombieLocation(8));
 
-
+  }
 
 }

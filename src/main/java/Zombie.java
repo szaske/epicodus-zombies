@@ -117,6 +117,16 @@ public class Zombie
 		}
 	}
 
+	public static boolean checkZombieLocation (int location) {
+    try(Connection con = DB.sql2o.open()) {
+			String sql = "SELECT (EXISTS (SELECT * FROM zombies WHERE location = :id))";
+			return con.createQuery(sql)
+			.addParameter("id", location)
+			.throwOnMappingFailure(false)
+			.executeAndFetchFirst(Boolean.class);
+		}
+	}
+
 	public static void moveZombies() {
 
 		for(Zombie zombie : Zombie.all()){

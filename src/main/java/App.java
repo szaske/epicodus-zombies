@@ -38,6 +38,7 @@ public class App {
       model.put("pictureURL", "img/" + Integer.toString(startLocation.getId()) + ".jpg");
       model.put("location", startLocation);
       model.put("template", "templates/index.vtl");
+			Zombie.initZombies();
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -46,18 +47,33 @@ public class App {
       int fromLocId = Integer.parseInt(request.queryParams("locationId"));
       String command = request.queryParams("command").toUpperCase();
 
+			int newLocation = Exit.leadsTo(fromLocId, command);
+			Location location = Location.find(newLocation);
+
+
       //Check to see if the command is a proper direction
+
       if(Location.find(fromLocId).getExitNames().contains(command)){
-        int newLocation = Exit.leadsTo(fromLocId, command);
-        Location location = Location.find(newLocation);
         model.put("location", location);
       } else {
-        Location location = Location.find(fromLocId);
-        model.put("location", location);
+				// stay in the same location
+        Location oldLocation = Location.find(fromLocId);
+        model.put("location", oldLocation);
       }
       model.put("pictureURL", "img/" + Integer.toString(Exit.leadsTo(fromLocId, command)) + ".jpg");
       model.put("template", "templates/index.vtl");
 			Zombie.moveZombies();
+
+			List<Exit> exits = location.getExits();
+			String zombieSounds = "";
+
+			for (Exit exit:exits) {
+				if(Zombie.checkZombieLocation(exit.getLeadsToLocationId())) {
+					System.out.println("A zombie to the" + exit.getDirection());
+					zombieSounds+= "<br>You hear gurgles to the " + exit.getDirection();
+				}
+			}
+			model.put("zombieSounds", zombieSounds);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

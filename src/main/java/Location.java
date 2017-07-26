@@ -107,6 +107,13 @@ public class Location
 		}
 	}
 
+	// public boolean isZombieNearby(int location) {
+	//
+	// 		return Zombie.checkZombieLocation(exit.getLeadsToLocationId());
+	//
+	// 	return false;
+	// }
+
 	// public Exit matchExit(String directionString) {
 	// 	List<Exit> exits = this.getExits();
 	// 	Exit thisExit=null;
