@@ -75,4 +75,17 @@ public class LocationTest {
     testLocation.save();
     assertEquals("Joel's Room", testLocation.getTitle());
   }
+
+  // @Test
+  // public void isZombieNearby_checksForZombieInContiguousLoc_true() {
+  //   Zombie.setZombieLocation(1, 8);
+  //   Location testLocation = new Location ("Joel's Room", "You have found yourself in a room full of junk.");
+  //   testLocation.save();
+  //   Exit firstExit = new Exit( "NORTH", testLocation.getId(), 8 );
+  //   firstExit.save();
+  //   Exit secondExit = new Exit( "SOUTH", testLocation.getId(), 6 );
+  //   secondExit.save();
+  //   assertTrue(testLocation.isZombieNearby(8));
+  // }
+
 }
