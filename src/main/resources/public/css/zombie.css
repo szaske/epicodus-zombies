@@ -15,8 +15,10 @@ body {
 }
 
 #command {
-  background-color: black;
-  border-color: black;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid white;
 }
 
 img {
@@ -26,6 +28,10 @@ img {
 
 .exits {
   color: white;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }
 
 .button {

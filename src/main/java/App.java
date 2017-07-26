@@ -7,25 +7,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Collections;
 
 public class App {
 
   // String codes
-	public static final String[] authorizedCommands =
+	public static final Map<String, String> authorizedCommands;
+	static {
+		Map<String, String> tempHM = new HashMap<String, String>();
+		tempHM.put("N","NORTH");
+		tempHM.put("NORTH","NORTH");
+		tempHM.put("S","SOUTH");
+		tempHM.put("SOUTH","SOUTH");
+		tempHM.put("W","WEST");
+		tempHM.put("WEST","WEST");
+		tempHM.put("E","EAST");
+		tempHM.put("EAST","EAST");
+		authorizedCommands = Collections.unmodifiableMap(tempHM);
+	}
+
+	public static final String[] zombieSoundOptions =
 	{
-		"UNDEFINED",
-		"NORTH",
-		"SOUTH",
-		"EAST",
-		"WEST",
-		"UP",
-		"DOWN",
-		"NORTHEAST",
-		"NORTHWEST",
-		"SOUTHEAST",
-		"SOUTHWEST",
-		"IN",
-		"OUT"
+		"gurgles",
+		"muffled steps",
+		"moaning",
+		"chewing",
+		"growling",
+		"a raspy voice whisper 'must...<breathing>commit'"
 	};
 
 	public static final String[] deaths =
@@ -69,15 +77,24 @@ public class App {
       int fromLocId = Integer.parseInt(request.queryParams("locationId"));
       String command = request.queryParams("command").toUpperCase();
 
-			//instaniate new items
+			//instaniate new variables
 			String zombieSounds = "";
-			Location location;
 
-      //Check to see if the command is a proper direction
-      if(Location.find(fromLocId).getExitNames().contains(command)){
-				// change location to the new location
-				location = Location.find(Exit.leadsTo(fromLocId, command));
-      } else {
+			Location location = null;
+
+			//check to see if command is a proper command
+			if (authorizedCommands.containsKey(command)){
+				System.out.println("your command is approved");
+				command=authorizedCommands.get(command);
+				System.out.println("command is now " + command);
+
+				//Check to see if the command is a proper direction
+				if(Location.find(fromLocId).getExitNames().contains(command)){
+					// change location to the new location
+					location = Location.find(Exit.leadsTo(fromLocId, command));
+				}
+			}
+			else {
 				// bad command lets stay in same location
 				location = Location.find(fromLocId);
       }
@@ -99,7 +116,10 @@ public class App {
 			for (Exit exit:exits) {
 				if(Zombie.checkZombieLocation(exit.getLeadsToLocationId())) {
 					System.out.println("A zombie to the" + exit.getDirection());
-					zombieSounds+= "<br>You hear gurgles to the " + exit.getDirection();
+
+					//get a random zombie sound
+					Random randomGenerator = new Random();
+					zombieSounds+= "<br>You hear "+ zombieSoundOptions[randomGenerator.nextInt(zombieSoundOptions.length)]+ " to the " + exit.getDirection();
 				}
 			}
 
