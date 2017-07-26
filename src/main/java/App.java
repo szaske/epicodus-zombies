@@ -42,17 +42,12 @@ public class App {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
-		get("/death", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/death.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location startLocation = Location.find(1);
       model.put("pictureURL", "img/" + Integer.toString(startLocation.getId()) + ".jpg");
       model.put("location", startLocation);
+			model.put("zombieSounds", "");
       model.put("template", "templates/index.vtl");
 			Zombie.initZombies();
       return new ModelAndView(model, layout);

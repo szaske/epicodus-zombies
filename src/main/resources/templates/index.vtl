@@ -1,11 +1,11 @@
 <!--index.vtl-->
-<h1>Location: $location.getTitle()</h1>
-Description: $location.getDescription()<br>
+<img class="center-block img-thumbnail" src="$pictureURL">
+<h1>$location.getTitle()</h1>
+$location.getDescription()<br>
 $zombieSounds<br>
-<img src="$pictureURL" width="600"><br>
-<h1>Exits:</h1>
+<p>You can move...</p>
 #foreach ($exit in $location.getExits())
-<h1>$exit.getDirection()</h1>
+<p class="exits">$exit.getDirection()</p>
 #end
 <form action="/go" method="post">
   <input id="locationId" name="locationId" type="hidden" value="$location.getId()">
