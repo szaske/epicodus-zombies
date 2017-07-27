@@ -130,4 +130,4 @@ _Images created using Autodesk Sketchbook Express and Wacom Bamboo Pen_
 
 *This software runs under the MIT license*
 
-Copyright (c) 2017 **_Michael Dunlap, Laura Hamilton, Steve Zaske & Joel Bakken_**
+Copyright (C) 2017 **_Michael Dunlap, Laura Hamilton, Steve Zaske & Joel Bakken_**
