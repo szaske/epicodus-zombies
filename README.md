@@ -76,7 +76,16 @@ epicodus-zombies/
 $ cd ~/Desktop
 $ git clone https://github.com/szaske/epicodus-zombies.git
 $ cd epicodus-zombies
+$gradle run
 ```
+* _Open browser window:_
+```
+localhost:4567
+```
+NOTE: Our database runs from AWS, so there is no need to run Postgres locally.  However, if you want to run the database yourself, or if the database is no longer live, here are the instructions to rebuild the database.
+
+## Database Rebuild
+
 * _Run Postgres with terminal command:_
 ```
 $ postgres
@@ -102,15 +111,6 @@ $ psql -U <postgresql username> -d epicodus_zombies -f media.sql
 
 
 ```
-* _Return to original tab where repository was cloned and run gradle:_
-```
-$gradle run
-```
-* _Open browser window:_
-```
-localhost:4567
-```
-
 ## Known Bugs
 
 _No known bugs at this time_
