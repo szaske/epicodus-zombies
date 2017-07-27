@@ -1,19 +1,12 @@
-//import java.util.Vector;
-//import java.util.Enumeration;
 import org.sql2o.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
 
 
-//
-//
+
 // Zombie - represents a in game Zombie
-//
 
 public class Zombie
 {
-	public static final double ACTIVE = .5;
 	// Member variables
 	private String name;
 	private String description;
@@ -47,17 +40,6 @@ public class Zombie
 	public int getLocation() {
 		return location;
 	}
-
-	// public void save() {
-	// 	try(Connection con = DB.sql2o.open()) {
-	// 		String sql = "INSERT INTO locations (roomtitle, roomdescription) VALUES (:roomtitle, :roomdescription)";
-	// 		this.id = (int) con.createQuery(sql, true)
-	// 			.addParameter("roomtitle", this.roomTitle)
-	// 			.addParameter("roomdescription", this.roomDescription)
-	// 			.executeUpdate()
-	// 			.getKey();
-	// 	}
-	// }
 
 	public static Zombie find(int id) {
     try(Connection con = DB.sql2o.open()) {
@@ -144,31 +126,8 @@ public class Zombie
 			}
 		}
 
-
-		//for each zombie
-		// get current location
-		// make a list of move options
-		// get location.getExits
-		// add exits to move options List
-		// add stay put option to options List
-		//randomly pick an option
-		// if move then find leadsTo
-		// update DB location to leadsTo
-
   }
 
-	// public static void moveZombie(String name) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "UPDATE zombies SET name=:name WHERE id=:id;";
-  //     con.createQuery(sql)
-  //       .addParameter("id", id)
-  //       .addParameter("name", name)
-  //       .throwOnMappingFailure(false)
-  //       .executeUpdate();
-  //   }
-  // }
-	//
-	//
 	public static List<Zombie> all() {
     String sql = "SELECT * FROM zombies ORDER BY id";
     try(Connection con = DB.sql2o.open()) {
@@ -177,87 +136,5 @@ public class Zombie
 		 		.executeAndFetch(Zombie.class);
     }
   }
-	//
-	// public List<Exit> getExits () {
-  //   try(Connection con = DB.sql2o.open()) {
-	// 		String sql = "SELECT * FROM exits where locationId=:id";
-	//
-	// 		return con.createQuery(sql)
-	// 		.addParameter("id", this.id)
-	// 		.throwOnMappingFailure(false)
-	// 		.executeAndFetch(Exit.class);
-	// 	}
-	// }
-	//
-	// public List<String> getExitNames () {
-  //   try(Connection con = DB.sql2o.open()) {
-	// 		String sql = "SELECT direction FROM exits where locationId=:id";
-	//
-	// 		return con.createQuery(sql)
-	// 		.addParameter("id", this.id)
-	// 		.throwOnMappingFailure(false)
-	// 		.executeAndFetch(String.class);
-	// 	}
-	// }
 
-	// public Exit matchExit(String directionString) {
-	// 	List<Exit> exits = this.getExits();
-	// 	Exit thisExit=null;
-	// 	for (Exit exit : exits) {
-	// 		if (exit.getDirectionName() == directionString) {
-	// 			int direction = exit.getDirection();
-	// 			try(Connection con = DB.sql2o.open())  {
-	// 				String sql = "SELECT * FROM exits WHERE locationId=:id AND direction = :direction";
-	// 				thisExit = con.createQuery(sql, true)
-	// 				.addParameter("id", this.id)
-	// 				.addParameter("direction", direction)
-	// 				.throwOnMappingFailure(false)
-	// 				.executeAndFetchFirst(Exit.class);
-	// 			}
-	// 		}
-	// 	}
-	// 	return thisExit;
-	// }
-	// // Adds an exit to this location
-	// public void addExit ( Exit exit )
-	// {
-	// 	m_Exits.addElement (exit);
-	// }
-  //
-	// // Removes an exit from this location
-	// public void removeExit ( Exit exit )
-	// {
-	// 	if (m_Exits.contains (exit))
-	// 	{
-	// 		m_Exits.removeElement (exit);
-	// 	}
-	// }
-  //
-  //
-  //
-  // public static List<Exit> all() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT * FROM exits where locationId=:locationId";
-  //     return con.createQuery(sql)
-  //       .addParameter("id", id)
-  //       .throwOnMappingFailure(false)
-  //       .executeAndFetch(Exit.class);
-  //   }
-  // }
-  //
-  //
-  //
-	// // Assigns location title
-	// public void setTitle( String roomTitle )
-	// {
-	// 	roomTitle = roomTitle;
-	// }
-  //
-  //
-  //
-	// // Assigns location description
-	// public void setDescription( String roomDescription )
-	// {
-	// 	roomDescription = roomDescription;
-	// }
-} // end of location class
+} // end of Zombie class
