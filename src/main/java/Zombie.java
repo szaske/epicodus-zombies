@@ -53,13 +53,13 @@ public class Zombie
 
 	public static void initZombies() {
     try(Connection con = DB.sql2o.open()) {
-			String sql = "UPDATE zombies SET location=3 WHERE id=1";
+			String sql = "UPDATE zombies SET location=5 WHERE id=1";
       con.createQuery(sql)
         .executeUpdate();
 			String sql2 = "UPDATE zombies SET location=17 WHERE id=2";
       con.createQuery(sql2)
         .executeUpdate();
-			String sql3 = "UPDATE zombies SET location=11 WHERE id=3";
+			String sql3 = "UPDATE zombies SET location=10 WHERE id=3";
       con.createQuery(sql3)
         .executeUpdate();
     }
@@ -77,13 +77,13 @@ public class Zombie
 
 	public static void countZombies() {
     try(Connection con = DB.sql2o.open()) {
-			String sql = "UPDATE zombies SET location=3 WHERE id=1";
+			String sql = "UPDATE zombies SET location=5 WHERE id=1";
       con.createQuery(sql)
         .executeUpdate();
 			String sql2 = "UPDATE zombies SET location=17 WHERE id=2";
       con.createQuery(sql2)
         .executeUpdate();
-			String sql3 = "UPDATE zombies SET location=11 WHERE id=3";
+			String sql3 = "UPDATE zombies SET location=10 WHERE id=3";
       con.createQuery(sql3)
         .executeUpdate();
     }

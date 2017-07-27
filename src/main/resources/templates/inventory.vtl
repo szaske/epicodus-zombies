@@ -1,0 +1,13 @@
+<!--inventory.vtl-->
+<img class="center-block img-thumbnail" src="$pictureURL">
+<h1>Backpack Inventory</h1>
+<p>In your backpack you have ...#foreach ($item in $items)
+$item
+#end</p><br>
+<form action="/go" method="post">
+  <input id="locationId" name="locationId" type="hidden" value="$location.getId()">
+  <input id="command" name="command" type="hidden" value="return">
+
+  <button type="submit" class="button">Return to Game</button>
+</form>
+<!--inventory.vtl-->

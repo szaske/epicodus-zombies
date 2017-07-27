@@ -16,9 +16,9 @@ public class ZombieTest {
   @Test
   public void initZombies_ResetsLocationOfZombies() {
     Zombie.initZombies();
-    assertEquals(3,Zombie.find(1).getLocation());
+    assertEquals(5,Zombie.find(1).getLocation());
     assertEquals(17,Zombie.find(2).getLocation());
-    assertEquals(11,Zombie.find(3).getLocation());
+    assertEquals(10,Zombie.find(3).getLocation());
   }
 
   @Test
