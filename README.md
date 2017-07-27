@@ -89,7 +89,9 @@ $ \c epicodus_zombies;
 $ CREATE TABLE locations (id serial PRIMARY KEY, roomtitle varchar, roomdescription varchar);
 $ CREATE TABLE exits (id serial PRIMARY KEY, locationid int,  leadsto int, direction varchar);
 $ CREATE TABLE zombies (id serial PRIMARY KEY, name varchar, description varchar, location int);
+$ CREATE TABLE items (id serial PRIMARY KEY, name varchar, description varchar, location int, status int, userid varchar);
 $ CREATE DATABASE epicodus_zombies_test WITH TEMPLATE sepicodus_zombies;
+
 
 ```
 * _Return to original tab where repository was cloned and run gradle:_
