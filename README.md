@@ -3,13 +3,14 @@ Team Dev TODO list is at: https://docs.google.com/document/d/1JvA3Q6teH_uK631jiM
 
 # _Takeover of The Coding Zombies_
 
-#### _Brief Description: Program presents user with a series of movement choices as they move through a play field populated with zombies and obstacles, July 27, 2017_
+#### _Brief Description: Program presents user with a series of movement choices as they move through a play field populated with zombies and obstacles, July 27, 2017, v1.0_
 
 #### By _**Michael Dunlap, Laura Hamilton, Steve Zaske & Joel Bakken**_
 
 ## Description
 _This program is a text based adventure game that uses a database to track the location of zombies, your location and the movement options available to you._
-* _The goal of this adventure is to find your way through the play field without being caught by any zombies. Don't forget to get your noodles on your way out...
+* _The goal of this adventure is to find your way through the play field without being caught by any zombies. Don't forget to get your noodles on your way out..._
+* _Use the commands: NORTH, EAST, SOUTH, WEST, GET NOODLES to navigate and interact with the gameplay environment.
 
 ## What's included
 Within the repository you'll find the following directories and files:
@@ -92,6 +93,13 @@ $ CREATE TABLE zombies (id serial PRIMARY KEY, name varchar, description varchar
 $ CREATE TABLE items (id serial PRIMARY KEY, name varchar, description varchar, location int, status int, userid varchar);
 $ CREATE DATABASE epicodus_zombies_test WITH TEMPLATE sepicodus_zombies;
 
+OR
+
+You can just restore the database that we have included with the project by using the following commands:
+(You may need to create the database first)
+
+$ psql -U <postgresql username> -d epicodus_zombies -f media.sql
+
 
 ```
 * _Return to original tab where repository was cloned and run gradle:_
@@ -113,7 +121,10 @@ _For questions or feedback, please notify Michael Dunlap, Laura Hamilton, Steve 
 
 ## Technologies Used
 
-_Languages used include Java & Amazon AWS database server. IDE used - Atom_
+_Languages used include Java._
+_Amazon AWS database server used for database hosting._
+_IDE used - Atom_
+_Images created using Autodesk Sketchbook Express and Wacom Bamboo Pen_
 
 ### License
 
