@@ -15,6 +15,8 @@ public class DatabaseRule extends ExternalResource {
       con.createQuery(deleteLocationsQuery).executeUpdate();
       String deleteExitsQuery = "DELETE FROM exits *;";
       con.createQuery(deleteExitsQuery).executeUpdate();
+      // String deleteItemsQuery = "DELETE FROM items *;";
+      // con.createQuery(deleteItemsQuery).executeUpdate();
       Zombie.initZombies();
     }
   }
