@@ -53,10 +53,12 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location startLocation = Location.find(1);
+			String commandError = "";
       model.put("pictureURL", "img/" + Integer.toString(startLocation.getId()) + ".jpg");
       model.put("location", startLocation);
 			model.put("zombieSounds", "");
       model.put("template", "templates/index.vtl");
+			model.put("commandError", commandError);
 			Zombie.initZombies();
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -79,6 +81,7 @@ public class App {
 
 			//instaniate new variables
 			String zombieSounds = "";
+			String commandError = ""; // initialize error message
 
 			Location location = null;
 
@@ -97,6 +100,8 @@ public class App {
 			else {
 				// bad command lets stay in same location
 				location = Location.find(fromLocId);
+				// commandError = "Don't know what the f%#k you want";
+				commandError += "Dunno what the f&^k '" + command + "' means.";
       }
 
 			Zombie.moveZombies();
@@ -125,6 +130,7 @@ public class App {
 
 			model.put("pictureURL", "img/" + location.getId() + ".jpg");
 			model.put("location", location);
+			model.put("commandError", commandError);
 			model.put("zombieSounds", zombieSounds);
 			model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);

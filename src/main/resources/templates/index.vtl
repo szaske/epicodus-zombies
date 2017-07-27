@@ -13,4 +13,13 @@ $zombieSounds<br>
   <input id="command" name="command" type="text" autofocus autocomplete="off">
   <button type="submit" class="button">Go</button>
 </form>
+#if ($commandError!="")
+  <div id="error">$commandError</div>
+#end
+<script>
+$(document).ready(function(){
+  setTimeout(function(){ $("#error").fadeOut(); }, 5000);
+});
+</script>
+
 <!--index.vtl-->
