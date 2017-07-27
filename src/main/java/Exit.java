@@ -42,43 +42,12 @@ public class Exit implements java.io.Serializable
 		"OUT"
 	};
 
-	public static final String[] shortDirName =
-	{
-		"NULL",
-		"N",
-		"S",
-		"E",
-		"W",
-		"U",
-		"D",
-		"NE",
-		"NW",
-		"SE",
-		"SW",
-		"I",
-		"O"
-	};
 
 	// Member variables
 	private int locationId;
 	private int leadsTo;
 	private String direction;
 	private int id;
-
-	// // Full name of direction eg SOUTHEAST
-	// private String directionName;
-	//
-	// // Shortened version of direction eg SE
-	// private String shortDirectionName;
-
-	// Default constructor
-	// public Exit()
-	// {
-	// 	direction = Exit.UNDEFINED;
-	// 	leadsTo = null;
-	// 	directionName = dirName[UNDEFINED];
-	// 	shortDirectionName = shortDirName[UNDEFINED];
-	// }
 
 	// Full constructor
 	public Exit( String direction, int locationId, int leadsTo )

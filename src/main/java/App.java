@@ -23,6 +23,11 @@ public class App {
 		tempHM.put("WEST","WEST");
 		tempHM.put("E","EAST");
 		tempHM.put("EAST","EAST");
+		tempHM.put("GET","GET");
+		tempHM.put("GET NOODLES","GET");
+		tempHM.put("NOODLES","GET");
+		tempHM.put("INV","INVENTORY");
+		tempHM.put("INVENTORY","INVENTORY");
 		authorizedCommands = Collections.unmodifiableMap(tempHM);
 	}
 
@@ -51,13 +56,17 @@ public class App {
     String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
+
+			//initialize the game world
+			Item.initNoodles();
+			Zombie.initZombies();
+
       Map<String, Object> model = new HashMap<String, Object>();
       Location startLocation = Location.find(1);
       model.put("pictureURL", "img/" + Integer.toString(startLocation.getId()) + ".jpg");
       model.put("location", startLocation);
 			model.put("zombieSounds", "");
       model.put("template", "templates/index.vtl");
-			Zombie.initZombies();
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -71,6 +80,14 @@ public class App {
 			return new ModelAndView(model, layout);
 		}, new VelocityTemplateEngine());
 
+		get("/inventory", (request, response) -> {
+			Map<String, Object> model = new HashMap<String, Object>();
+			int fromLocId = Integer.parseInt(request.queryParams("locationId"));
+			model.put("location", Location.find(fromLocId));
+			model.put("template", "templates/inventory.vtl");
+			return new ModelAndView(model, layout);
+		}, new VelocityTemplateEngine());
+
     post("/go", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
 			//get info from th post
@@ -80,7 +97,7 @@ public class App {
 			//instaniate new variables
 			String zombieSounds = "";
 
-			Location location = null;
+			Location location = Location.find(fromLocId); //default set
 
 			//check to see if command is a proper command
 			if (authorizedCommands.containsKey(command)){
@@ -88,22 +105,63 @@ public class App {
 				command=authorizedCommands.get(command);
 				System.out.println("command is now " + command);
 
-				//Check to see if the command is a proper direction
-				if(Location.find(fromLocId).getExitNames().contains(command)){
-					// change location to the new location
-					location = Location.find(Exit.leadsTo(fromLocId, command));
-				}
-			}
+				switch (command){
+					case "INV":
+					case "INVENTORY":
+					if(Item.itemsInInventory().size()==0){
+						List<String> arrOfItems = new ArrayList<>();
+						arrOfItems.add("nothing");
+						model.put("items", arrOfItems);
+					}
+					else {
+						model.put("items", Item.itemsInInventory());
+					}
+						model.put("template", "templates/inventory.vtl");
+						break;
+					case "GET":
+					case "GET NOODLES":
+					case "NOODLES":
+						if (fromLocId==16){
+							Item.getNoodles();
+							System.out.println("you got the noodles");
+						}
+						else {
+							System.out.println("you're not in the kitchen");
+						}
+						model.put("items", Item.itemsInInventory());
+						model.put("template", "templates/inventory.vtl");
+						location = Location.find(fromLocId); //and stay in location
+						break;
+					default:
+						model.put("template", "templates/index.vtl");
+
+						//Check to see if the room has an exit in that direction
+						if(Location.find(fromLocId).getExitNames().contains(command)){
+							location = Location.find(Exit.leadsTo(fromLocId, command));
+							break;
+						} //end of exit validation (if)
+						else {
+							location = Location.find(fromLocId); //and stay in location
+							break;
+						}
+				} //end of switch
+			} //end of If
 			else {
 				// bad command lets stay in same location
 				location = Location.find(fromLocId);
+				model.put("template", "templates/index.vtl");
       }
 
 			Zombie.moveZombies();
 
 			System.out.println("You're in location: " + location.getId());
 
-			//check for death
+			//check for elevator death
+			if (location.getId()==19){
+				response.redirect("/elevator-death");
+			}
+
+			// check for Zombie death
 			for (Zombie zombie : Zombie.all()){
 				if(zombie.getLocation()==location.getId()){
 					response.redirect("/death");
@@ -126,7 +184,6 @@ public class App {
 			model.put("pictureURL", "img/" + location.getId() + ".jpg");
 			model.put("location", location);
 			model.put("zombieSounds", zombieSounds);
-			model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
