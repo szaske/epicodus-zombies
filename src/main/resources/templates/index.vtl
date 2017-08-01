@@ -1,0 +1,25 @@
+<!--index.vtl-->
+<img class="center-block img-thumbnail" src="$pictureURL">
+<h1>$location.getTitle()</h1>
+$location.getDescription()<br>
+$zombieSounds<br>
+<p>You can move...</p>
+#foreach ($exit in $location.getExits())
+<p class="exits">$exit.getDirection()</p>
+#end
+<form action="/go" method="post">
+  <input id="locationId" name="locationId" type="hidden" value="$location.getId()">
+  <label for="command">></label>
+  <input id="command" name="command" type="text" autofocus autocomplete="off">
+  <button type="submit" class="button">Go</button>
+</form>
+#if ($commandError!="")
+  <div id="error">$commandError</div>
+#end
+<script>
+$(document).ready(function(){
+  setTimeout(function(){ $("#error").fadeOut(); }, 5000);
+});
+</script>
+
+<!--index.vtl-->

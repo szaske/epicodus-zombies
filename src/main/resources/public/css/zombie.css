@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'OldSchool';
+  src:
+    local('OldSchool'),
+    url('/fonts/V5Xtende.ttf')
+    format('truetype');
+}
+
+body {
+  background-color: black;
+  font-family: VT323;
+  font-size: 32pt;
+  line-height: 100%;
+  color: #008106;
+}
+
+#command {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid white;
+}
+
+img {
+  width:500px;
+  margin: 15px;
+}
+
+.exits {
+  color: white;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.button {
+  color: black;
+  background-color: ##e5e5e5;
+  border: 2px solid #008106;
+  border-radius: 8px;
+  font-size: 36px;
+  padding: 4px 40px;
+}
+
+.button:hover {
+  background-color: #A5A6A2}
+
+.button:active {
+  background-color: #A5A6A2;
+  box-shadow: 0 5px #666;
+}
+
+h1 {
+  font-family: 'OldSchool';
+  color: #9b0ba3;
+  font-size: 36pt;
+}
